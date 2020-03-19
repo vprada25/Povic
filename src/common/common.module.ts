@@ -13,6 +13,7 @@ import configuration from './config/enviroment.config';
         }),
 
     ],
+    providers:[TypeOrmConfigService],
     exports: [TypeOrmConfigService]
 })
 export class CommonModule { }
