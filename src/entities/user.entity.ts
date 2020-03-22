@@ -18,7 +18,7 @@ export class User {
     @Column('varchar')
     estate: string;
 
-    @OneToOne(type => Person)
+    @OneToOne(type => Person, {cascade: true})
     @JoinColumn({name:"idPerson"})
     person:Person;
 

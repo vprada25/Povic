@@ -2,11 +2,15 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "../../../entities/user.entity";
+import { PersonService } from "../person/person.service";
 
 @Injectable()
 export class UserService {
 
-    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>){}
+    constructor(
+      @InjectRepository(User) private readonly userRepository: Repository<User>,
+      private readonly personService: PersonService
+    ){}
 
     async findUser(idUser: number): Promise<User> {
         try {
@@ -26,7 +30,10 @@ export class UserService {
       
       async createUser(data: User): Promise<User> {
         try {
-          return await this.userRepository.save({...data})
+          const person = await this.personService.createPerson(data.person);
+          if(person){
+            return await this.userRepository.save({...data})
+          }
         } catch (error) {
           return error;
         }

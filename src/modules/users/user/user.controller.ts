@@ -23,15 +23,12 @@ export class userController {
 
     @Put()
     async updateuser(@Param() @Body()user: User) {
-        //const response = await this.userService.updateUser(user)
         return await this.userService.updateUser(user)
-      //return `This action updates a #${user} user`;
     }
 
     @Delete(':idUser')
-    async deleteUser(@Param('idUser') user:User) {
-        return await this.userService.deleteUser
-    //return `This action removes a #${user} user`;
+    async deleteUser(@Param('idUser') idUser:number) {
+        return await this.userService.deleteUser(idUser)
     }
 
 }
