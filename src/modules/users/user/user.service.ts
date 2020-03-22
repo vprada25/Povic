@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "../../../entities/user.entity";
 import { PersonService } from "../person/person.service";
+import { Role } from "src/entities/role.entity";
 
 @Injectable()
 export class UserService {
@@ -43,6 +44,10 @@ export class UserService {
         try {
           let user = await this.findUser(data.idUser);
           if(user){
+            user.UserName = data.UserName;
+            user.password = data.password;
+            user.role = new Role();
+            user.role.idRole = data.role.idRole;
             return await this.userRepository.save({...data})
           }
         } catch (error) {
